@@ -1,0 +1,164 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.categoryListNewsHeader {
+    position: relative;
+    margin-bottom: .5rem;
+    text-align: center;
+}
+
+.categoryListNewsHeader h4 {
+    margin-top: 10px;
+    display: inline-block;
+    background: #fff;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    padding: .5rem 1.5rem;
+    border: .125rem solid #007bff;
+    color: #007bff;
+}
+
+.categoryListNewsHeader h4::after {
+    content: "";
+    position: absolute;
+    background: #007bff;
+    height: .125rem;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    z-index: -999;
+}
+
+.categoryListNewsHeader h4 a {
+    text-decoration:none;
+}
+
+.categoryNews a {
+    display:list-item;
+    text-decoration:none;
+}
+
+#blockClient {
+    width: 298px;
+    height: 218px;
+    padding: 18px 9px;
+    border-radius: 4px;
+    background: #fafafa;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    display: none;
+    opacity: 0;
+    z-index: 38;
+    text-align: center;
+}
+
+#blockClient #blockClient_Close {
+    width: 21px;
+    height: 21px;
+    position: absolute;
+    font-size: 29px;
+    top: 1px;
+    right: 11px;
+    cursor: pointer;
+    display: block;
+}
+
+#myOverlay {
+    z-index: 37;
+    position: fixed;
+    background: rgba(0,0,0,.7);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    display: none;
+}
+
+.cardButton a {
+    margin-bottom:10px;
+}
+
+.cardPerson {
+    padding:15px;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu a::after {
+    transform: rotate(-90deg);
+    position: absolute;
+    right: 3px;
+    top: 40%;
+}
+
+.dropdown-submenu:hover .dropdown-menu, .dropdown-submenu:focus .dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute !important;
+    margin-top: -30px;
+    left: 100%;
+}
+
+@media (max-width: 992px) {
+    .dropdown-menu {
+        width: 50%;
+    }
+
+    .dropdown-menu .dropdown-submenu {
+        width: auto;
+    }
+}
+
+.currencyItems {
+    overflow-y: scroll;
+}
+
+.firstValuteStyle {
+    text-align: center;
+    border-radius: 35px;
+    border: 1px solid black;
+}
+
+.resultButtonStyle {
+    border-radius: 35px;
+    border: none;
+    color: black;
+    background-color: orange;
+    padding: 10px;
+}
+
+.currencyTable thead tr th {
+    width:186px;
+    height:75px;
+}

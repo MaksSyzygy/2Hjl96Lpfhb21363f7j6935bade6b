@@ -1,0 +1,70 @@
+﻿@model IEnumerable<BankApplication.Models.ViewModels.Currency.CurrencyVM>
+
+@{
+    ViewBag.Title = "Курсы валют";
+
+    AjaxOptions ajaxCurrency = new AjaxOptions()
+    {
+        UpdateTargetId = "list",
+        Url = Url.Action("CurrencyCalc")
+    };
+}
+
+<h2 style="margin-top:15px;">Курсы валют на @DateTime.Now.ToShortDateString()</h2>
+
+<div class="row">
+    <div class="col" style="margin-left:15px; margin-bottom:15px; text-align:center">
+        <div class="row" style="display:inline-table">
+            @using (Ajax.BeginForm(ajaxCurrency))
+            {
+                <div class="col">
+                    <select name="firstValute" class="currencyItems">
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.CurrencyCharCode">@item.CurrencyName</option>
+                        }
+                    </select>
+                    <select name="secondValute" class="currencyItems">
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.CurrencyCharCode">@item.CurrencyName</option>
+                        }
+                    </select>
+                </div>
+                <div id="list" class="col">
+                    @Html.Action("CurrencyCalc")
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrencyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrencyRate) за 1 грн
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExchangeDate)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrencyName)
+            </td>
+            <td>
+                @Math.Round(item.CurrencyRate, 4) грн
+            </td>
+            <td>
+                @item.ExchangeDate.ToString("dd.MM.yyyy")
+            </td>
+        </tr>
+    }
+
+</table>

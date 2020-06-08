@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <title>@ViewBag.Title – First National Bank</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="/">First National Bank</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="nav nav-tabs">
+
+                <li class="nav-item">
+                    @Html.ActionLink("Новости", "Index", "News", "", new { @class = "nav-link", style = "text-decoration: none; color:black" })
+                </li>
+
+                <li class="nav-item">
+                    @Html.ActionLink("Курсы валют", "Index", "Currency", "", new { @class = "nav-link", style = "text-decoration: none; color:black" })
+                </li>
+
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <li>
+                        @Html.ActionLink("Админ зона", "Index", "Dashboard", new { area = "Admin" }, new { @class = "nav-link", style = "text-decoration: none; color:black" })
+                    </li>
+                }
+
+                @if (Request.IsAuthenticated)
+                {
+                    <li>
+                        @Html.ActionLink("Выйти", "LogOut", "Login", null, new { @class = "nav-link", style = "text-decoration: none; color:black" })
+                    </li>
+                }
+                else
+                {
+                    if (ViewBag.Title == "Страница входа")
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Вход", "Login", "Login", null, new { @class = "nav-link", style = "text-decoration: none; color:black" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Вход", "Login", "Login", null, new { @class = "nav-link", style = "text-decoration: none; color:black" })
+                        </li>
+                    }
+                }
+
+                @if (Request.IsAuthenticated && User.IsInRole("Клиент"))
+                {
+                    if (ViewBag.Title == "Личный кабинет")
+                    {
+                        <li class="active">
+                            @Html.Action("LoginPartial", "Login", new { area = "" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.Action("LoginPartial", "Login", new { area = "" })
+                        </li>
+                    }
+                }
+
+                @if (Request.IsAuthenticated && User.IsInRole("Менеджер") ||
+                    Request.IsAuthenticated && User.IsInRole("Старший менеджер") ||
+                    Request.IsAuthenticated && User.IsInRole("Директор Отделения"))
+                {
+                    if (ViewBag.Title == "Рабочий стол")
+                    {
+                        <li class="active">
+                            @Html.Action("LoginPartial", "Login", new { area = "" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.Action("LoginPartial", "Login", new { area = "" })
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year – First National Bank</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/ajax")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

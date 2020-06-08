@@ -1,0 +1,18 @@
+﻿@model IEnumerable<BankApplication.Models.ViewModels.Currency.CurrencyVM>
+
+<table class="table table-bordered currencyTable">
+    <thead>
+        <tr>
+            <th>@ViewBag.FisrtValuteName</th>
+            <th> = </th>
+            <th>@ViewBag.SecondValuteName</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.TextBox("firstValuteCount", "1", new { @class = "firstValuteStyle" })</td>
+            <td><input type="submit" value="Посчитать" class="resultButtonStyle" /></td>
+            <td>@Math.Round(ViewBag.Result, 4)</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,55 @@
+﻿@model BankApplication.Models.ViewModels.Employees.EmployeeVM
+
+@{
+    ViewBag.Title = "Личный кабинет";
+}
+
+<h3 style="text-align:center">Профиль: @Model.EmployeeName @Model.EmployeeSurname</h3>
+
+<div class="container">
+    <div class="row">
+        <table class="table table-striped" style="width:60%" align="center">
+            <tbody>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeeName)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeeName)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeeSurname)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeeSurname)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeeAge)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeeAge)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeeEmail)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeeEmail)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeePhone)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeePhone)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeeLogin)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeeLogin)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeePosition)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeePosition)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeeSalary)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeeSalary)</td>
+                </tr>
+            </tbody>
+        </table>
+        <span>
+            @Html.Action("MyClients")
+        </span>
+    </div>
+</div>
+<p style="text-align:center">
+    @Html.ActionLink("Редактировать", "EditEmployee", new { id = Model.EmployeeId }, new { @class = "btn btn-success" }) |
+    @Html.ActionLink("К списку сотрудников", "Index", "", new { @class = "btn btn-info" })
+</p>

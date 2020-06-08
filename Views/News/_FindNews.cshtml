@@ -1,0 +1,32 @@
+﻿@model IEnumerable<BankApplication.Models.ViewModels.Pages.PageVM>
+
+@if (Model.Count() <= 0)
+{
+    <h4>
+        Не найдено
+    </h4>
+}
+else
+{
+    foreach (var item in Model.GroupBy(x => x.PageCategory))
+    {
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                <div class="categoryListNewsHeader">
+                    <h4>
+                        <a href="/news/news-category/@item.Key">@item.Key</a>
+                    </h4>
+                </div>
+                <div class="categoryNews">
+                    @foreach (var news in item)
+                    {
+                        <a href="/news/news-details/@news.Description" target="_blank">
+                            @news.Title
+                        </a>
+                        <br />
+                    }
+                </div>
+            </div>
+        </div>
+    }
+}

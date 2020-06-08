@@ -1,0 +1,18 @@
+﻿@model BankApplication.Models.ViewModels.Login.LoginPartialVM
+@using BankApplication.Models.Data
+
+@using (BankDB bankDB = new BankDB())
+{
+    if (bankDB.Employees.Any(x => x.EmployeeName == Model.FirstName && x.EmployeeSurname == Model.Surname))
+    {
+        <li class="navbar-text">
+            <a href="/employees/manager-details" style="text-decoration:none">&nbsp;&nbsp;(@Model.FirstName @Model.Surname)</a>
+        </li>
+    }
+    else
+    {
+        <li class="navbar-text">
+            <a href="/clients/client-details" style="text-decoration:none">&nbsp;&nbsp;(@Model.FirstName @Model.Surname)</a>
+        </li>
+    }
+}

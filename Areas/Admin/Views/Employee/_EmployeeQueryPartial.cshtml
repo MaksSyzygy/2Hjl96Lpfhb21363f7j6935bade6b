@@ -1,0 +1,32 @@
+﻿@model IEnumerable<BankApplication.Models.ViewModels.Employees.EmployeeVM>
+
+<div class="row d-inline-flex col p-2" style="margin-top:20px;">
+    @if (!Model.Any())
+    {
+        <h2>Запрос не найден</h2>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-md-6 col-lg-4 p-2">
+                <div class="card h-100 cardPerson">
+                    <h4>@item.EmployeeName @item.EmployeeSurname</h4>
+                    <p class="card-text"><span style="font-weight:700">Возраст:</span> @item.EmployeeAge</p>
+                    <p class="card-text"><span style="font-weight:700">Должность:</span> @item.EmployeePosition</p>
+                    <p class="card-text"><span style="font-weight:700">Email:</span> @item.EmployeeEmail</p>
+                    <p class="card-text"><span style="font-weight:700">Телефон:</span> @item.EmployeePhone</p>
+                    <p class="card-text"><span style="font-weight:700">Оклад:</span> @item.EmployeeSalary</p>
+                    <p class="card-text"><span style="font-weight:700">Логин:</span> @item.EmployeeLogin</p>
+                    <p class="card-text"><span style="font-weight:700">Пароль:</span> @item.EmployeePassword</p>
+                    <p class="card-text"><span style="font-weight:700">Кол-во клиентов:</span> @item.ClientsCount</p>
+                    <p class="card-text">
+                        @Html.ActionLink("Инфо", "EmployeeDetails", new { id = item.EmployeeId }, new { @class = "btn btn-info" }) |
+                        @Html.ActionLink("Редактировать", "EditEmployee", new { id = item.EmployeeId }, new { @class = "btn btn-success" }) |
+                        @Html.ActionLink("Удалить", "DeleteEmployee", new { id = item.EmployeeId }, new { @class = "btn btn-danger delete" })
+                    </p>
+                </div>
+            </div>
+        }
+    }
+</div>

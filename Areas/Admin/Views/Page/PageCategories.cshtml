@@ -1,0 +1,76 @@
+﻿@model IEnumerable<BankApplication.Models.ViewModels.PageCategories.CategoryVM>
+
+@{
+    ViewBag.Title = "Категории страниц";
+}
+
+@if (TempData["OK"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["OK"]
+    </div>
+}
+
+@using BankApplication.Models.Data;
+
+<h3 style="margin-top: 15px; text-align:center">Категории страниц</h3>
+
+@if (Model.Count() <= 0)
+{
+    <h4>Категорий не обнаружено</h4>
+    <p>
+        @Html.ActionLink("Создать категорию", "CreateCategory", "", new { @class = "btn btn-success" })
+    </p>
+}
+else
+{
+    <p>
+        @Html.ActionLink("Создать категорию", "CreateCategory", "", new { @class = "btn btn-success" })
+    </p>
+
+    <table class="table" style="text-align:center">
+        <tr>
+            <th>
+                Имя категории
+            </th>
+            <th>
+                Кол-во страниц категорий
+            </th>
+            <th>
+                Панель управления
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @using (BankDB bankDB = new BankDB())
+                    {
+                        item.categoryCount = bankDB.Pages.Where(x => x.PageCategory == item.Name).Count();
+                    }
+                    @Html.DisplayFor(modelItem => item.categoryCount)
+                </td>
+                <td>
+                    @Html.ActionLink("Редактировать", "EditCategory", new { id = item.Id }, new { @class = "btn btn-success" })
+                    @if (item.Name != "Home")
+                    {
+                        string slash = "| ";
+                        @slash;
+                        @Html.ActionLink("Удалить", "DeleteCategory", new { id = item.Id }, new { @class = "btn btn-danger delete" })
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+
+    @Html.ActionLink("К списку страниц", "Index", "", new { @class = "btn btn-info" })
+}
+
+@section Scripts
+{
+    <script src="~/Content/BankJS/DeleteCategoryJS.js"></script>
+}

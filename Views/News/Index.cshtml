@@ -1,0 +1,39 @@
+﻿@model IEnumerable<BankApplication.Models.ViewModels.Pages.PageVM>
+
+@{
+    ViewBag.Title = "Новости";
+    AjaxOptions ajax = new AjaxOptions
+    {
+        UpdateTargetId = "list",
+        Url = Url.Action("FindNews")
+    };
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-md-8 col-sm-12">
+        <div class="card border-info">
+            <div class="card-header bg-info text-white">
+                Введите запрос
+            </div>
+
+            <div class="card-body">
+                @using (Ajax.BeginForm(ajax))
+                {
+                    <div class="input-group">
+                        <input type="text" name="filter" class="form-control" placeholder="Найти" />
+                        <span class="input-group-btn" style="padding-left: 10px;">
+                            <button type="submit" class="btn btn-success">Поиск</button>
+                        </span>
+                        <span class="input-group-btn" style="padding-left: 10px;">
+                            @Html.ActionLink("Очистить", "Index", "", new { @class = "btn btn-danger" })
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="list" class="container-fluid">
+    @Html.Action("FindNews")
+</div>

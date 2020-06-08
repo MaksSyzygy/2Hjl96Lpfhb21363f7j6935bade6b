@@ -1,0 +1,28 @@
+﻿@model BankApplication.Models.ViewModels.Pages.PageVM
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dd>
+            @Html.Raw(Model.Body)
+        </dd>
+
+        <dd>
+            @Html.DisplayFor(model => model.PageCategory)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("К списку новостей", "Index", "", new { @class = "btn btn-info"})
+</p>

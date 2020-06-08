@@ -1,0 +1,128 @@
+﻿@model IEnumerable<BankApplication.Models.ViewModels.Clients.ClientVM>
+
+@{
+    ViewBag.Title = "Клиенты";
+    AjaxOptions ajaxSearch = new AjaxOptions()
+    {
+        UpdateTargetId = "list",
+        Url = Url.Action("ClientsQueryPartial")
+    };
+
+    AjaxOptions ajaxSort = new AjaxOptions()
+    {
+        UpdateTargetId = "list",
+        Url = Url.Action("ClientsQueryPartial")
+    };
+}
+
+<h3 style="text-align:center; margin-top:15px;">Список клиентов</h3>
+
+@if (TempData["OK"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["OK"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<div class="row d-inline-flex col p-2">
+    <div class="col" style="margin-left:15px; margin-bottom:15px;">
+        <div class="row">
+            @Html.ActionLink("Черный список", "BlackList", "", new { @class = "btn btn-danger" })
+            @using (Ajax.BeginForm(ajaxSort))
+            {
+                <ul class="navbar-nav mr-auto" style="margin-left:15px;">
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle btn btn-info" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Сортировать
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" href="#">Возраст</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button class="dropdown-item" name="sort" value="AgeAsc">Молодые</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" name="sort" value="AgeDesc">Старые</button>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" href="#">Баланс</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button class="dropdown-item" name="sort" value="BalanceAsc">Меньше</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" name="sort" value="BalanceDesc">Больше</button>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" href="#">Кредит</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button class="dropdown-item" name="sort" value="CreditAsc">Меньше</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" name="sort" value="CreditDesc">Больше</button>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" href="#">Депозит</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button class="dropdown-item" name="sort" value="DepositAsc">Меньше</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" name="sort" value="DepositDesc">Больше</button>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            }
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-5">
+        <div class="card border-info">
+            <div class="card-header bg-info text-white">
+                Введите запрос
+            </div>
+
+            <div class="card-body">
+                @using (Ajax.BeginForm(ajaxSearch))
+                {
+                    <div class="input-group">
+                        @Html.TextBox("filter", "", new { @class = "form-control" })
+                        <span class="input-group-btn" style="padding-left: 10px;">
+                            <button type="submit" class="btn btn-success">Поиск</button>
+                        </span>
+                        <span class="input-group-btn" style="padding-left: 10px;">
+                            @Html.ActionLink("Очистить", "Index", "", new { @class = "btn btn-danger" })
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="list">
+    @Html.Action("ClientsQueryPartial")
+</div>
+
+@section Scripts
+{
+    <script src="~/Content/BankJS/BlockClientJS.js"></script>
+    <script src="~/Content/BankJS/DeleteClientJS.js"></script>
+}

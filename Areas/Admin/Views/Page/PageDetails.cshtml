@@ -1,0 +1,49 @@
+﻿@model BankApplication.Models.ViewModels.Pages.PageVM
+
+@{
+    ViewBag.Title = "Детали страницы";
+}
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Body)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.Body)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PageCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PageCategory)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Редактировать", "EditPage", new { id = Model.PageId }, new { @class = "btn btn-success"}) |
+    @Html.ActionLink("К списку страниц", "Index", "", new { @class = "btn btn-info"})
+</p>

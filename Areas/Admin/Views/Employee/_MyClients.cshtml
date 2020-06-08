@@ -1,0 +1,68 @@
+﻿@model IEnumerable<BankApplication.Models.ViewModels.Clients.ClientVM>
+
+<h3 style="text-align:center">Список клиентов</h3>
+<table class="table table-striped" align="center" style="text-align:center">
+    <tbody>
+        <tr>
+            <th scope="row">@Html.DisplayNameFor(model => model.ClientName)</th>
+            <th scope="row">@Html.DisplayNameFor(model => model.ClientSurname)</th>
+            <th scope="row">@Html.DisplayNameFor(model => model.ClientAge)</th>
+            <th scope="row">@Html.DisplayNameFor(model => model.ClientEmail)</th>
+            <th scope="row">@Html.DisplayNameFor(model => model.ClientPhone)</th>
+            <th scope="row">@Html.DisplayNameFor(model => model.Balance)</th>
+            <th scope="row">@Html.DisplayNameFor(model => model.Credit)</th>
+            <th scope="row">@Html.DisplayNameFor(model => model.Deposit)</th>
+            <th scope="row">Статус</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientSurname)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientAge)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientEmail)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientPhone)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Balance)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Credit)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Deposit)
+                </td>
+
+                @if (item.BanStatus == false)
+                {
+                    <td class="text-success">
+                        Активный
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a class="text-danger" href="~/admin/client/BlackList" style="text-decoration:none" title="Посмотреть причину">Заблокирован</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

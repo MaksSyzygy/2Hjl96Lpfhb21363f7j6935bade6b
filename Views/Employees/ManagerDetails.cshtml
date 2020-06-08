@@ -1,0 +1,69 @@
+﻿@model BankApplication.Models.ViewModels.Employees.EmployeeVM
+
+@{
+    ViewBag.Title = "Рабочий стол";
+}
+
+@if (TempData["OK"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["OK"]
+    </div>
+}
+
+<h3 style="text-align:center">Добро пожаловать, @Model.EmployeeName @Model.EmployeeSurname</h3>
+
+<div style="text-align:center">
+    @Html.ActionLink("Создать клиента", "create-account-by-manager", "", new { @class = "btn btn-success" })
+</div>
+
+<div class="container">
+    <div class="row">
+        <table class="table table-striped" align="center" style="width:60%">
+            <tbody>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeeName)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeeName)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeeSurname)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeeSurname)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeeAge)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeeAge)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeeEmail)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeeEmail)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeePhone)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeePhone)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeeLogin)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeeLogin)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeePassword)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeePassword)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeePosition)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeePosition)</td>
+                </tr>
+                <tr>
+                    <th scope="row">@Html.DisplayNameFor(model => model.EmployeeSalary)</th>
+                    <td>@Html.DisplayFor(model => model.EmployeeSalary)</td>
+                </tr>
+            </tbody>
+        </table>
+        <span>
+            @Html.Action("MyClientsPartial")
+        </span>
+    </div>
+</div>
+<p style="text-align:center">
+    @Html.ActionLink("На главную", "Home", "", new { @class = "btn btn-info" })
+</p>

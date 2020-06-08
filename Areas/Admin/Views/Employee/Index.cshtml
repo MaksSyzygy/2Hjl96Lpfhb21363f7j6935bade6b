@@ -1,0 +1,105 @@
+﻿@model IEnumerable<BankApplication.Models.ViewModels.Employees.EmployeeVM>
+@{
+    ViewBag.Title = "Персонал";
+    AjaxOptions ajax = new AjaxOptions
+    {
+        UpdateTargetId = "list",
+        Url = Url.Action("EmployeeQueryPartial")
+    };
+}
+
+<h3 style="margin-top: 15px; text-align:center">Список сотрудников</h3>
+
+@if (TempData["OK"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["OK"]
+    </div>
+}
+
+<div class="row d-inline-flex col p-2">
+    <div class="col" style="margin-left:15px; margin-bottom:15px;">
+        <div class="row">
+            @Html.ActionLink("Добавить сотрудника", "CreateEmployee", "", new { @class = "btn btn-success" })
+            @using (Ajax.BeginForm(ajax))
+            {
+                <ul class="navbar-nav mr-auto" style="margin-left:15px;">
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle btn btn-info" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Сортировать
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" href="#">Возраст</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button class="dropdown-item" name="sort" value="AgeAsc">Молодые</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" name="sort" value="AgeDesc">Старые</button>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" href="#">Зарплата</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button class="dropdown-item" name="sort" value="SalaryAsc">Меньше</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" name="sort" value="SalaryDesc">Больше</button>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <button class="dropdown-item" name="sort" value="Position">Должность</button>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" href="#">Кол-во клиентов</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button class="dropdown-item" name="sort" value="ClientAsc">Меньше</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" name="sort" value="ClientDesc">Больше</button>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            }
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-5">
+        <div class="card border-info">
+            <div class="card-header bg-info text-white">
+                Введите запрос
+            </div>
+
+            <div class="card-body">
+                @using (Ajax.BeginForm(ajax))
+                {
+                    <div class="input-group">
+                        @Html.TextBox("filter", "", new { @class = "form-control" })
+                        <span class="input-group-btn" style="padding-left: 10px;">
+                            <button type="submit" class="btn btn-success">Поиск</button>
+                        </span>
+                        <span class="input-group-btn" style="padding-left: 10px;">
+                            @Html.ActionLink("Очистить", "Index", "", new { @class = "btn btn-danger" })
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="list">
+    @Html.Action("EmployeeQueryPartial")
+</div>
+
+@section Scripts
+{
+    <script src="~/Content/BankJS/DeleteEmployeeJS.js"></script>
+}

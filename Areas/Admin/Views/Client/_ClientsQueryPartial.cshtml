@@ -1,0 +1,81 @@
+﻿@model IEnumerable<BankApplication.Models.ViewModels.Clients.ClientVM>
+
+<div class="row d-inline-flex col p-2" style="margin-top:20px;">
+    @if (!Model.Any())
+    {
+        <h2>Не найдено</h2>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-md-6 col-lg-4 p-2">
+                <div class="card h-100 cardPerson">
+                    <h4>@item.ClientName @item.ClientSurname</h4>
+                    <p class="card-text">
+                        <span style="font-weight:700">Возраст:</span> @item.ClientAge
+                    </p>
+                    <p class="card-text">
+                        <span style="font-weight:700">Email:</span>
+                    </p>
+                    <p class="card-text"> @item.ClientEmail</p>
+                    <p class="card-text">
+                        <span style="font-weight:700">Телефон:</span> @item.ClientPhone
+                    </p>
+                    <p class="card-text">
+                        <span style="font-weight:700">Менеджер:</span> @item.MyEmployee
+                    </p>
+                    <p class="card-text">
+                        <span style="font-weight:700">Логин:</span> @item.ClientLogin
+                    </p>
+                    <p class="card-text">
+                        <span style="font-weight:700">Баланс:</span> @item.Balance
+                    </p>
+                    <p class="card-text">
+                        <span style="font-weight:700">Кредит:</span> @item.Credit
+                    </p>
+                    <p class="card-text">
+                        <span style="font-weight:700">Депозит:</span> @item.Deposit
+                    </p>
+                    <p class="cardButton card-text" style="display:grid">
+                        @Html.ActionLink("Редактировать", "EditClient", new { id = item.ClientId }, new { @class = "btn btn-success" })
+                        <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#blockClient_@item.ClientId">Заблокировать</a>
+                        @Html.ActionLink("Удалить", "DeleteClient", new { id = item.ClientId }, new { @class = "btn btn-danger delete" })
+                    </p>
+                </div>
+            </div>
+            using (Html.BeginForm("BlockClient", "Client"))
+            {
+                <div class="modal" id="blockClient_@item.ClientId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Укажите причину</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" name="idClient" value="@item.ClientId" />
+                                <input type="text" name="reason" class="form-control" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Заблокировать</button>
+                                <button class="btn btn-danger" data-dismiss="modal">Закрыть</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @*<div id="blockClient">
+                    <form method="post" action="~/admin/client/BlockClient">
+                        <p class="text-danger">Блокировка клиента</p>
+                        <p>Укажите причину</p>
+                        <input type="hidden" name="id" value="@item.ClientId" />
+                        <input type="text" name="reason" class="form-control" />
+                        <input type="submit" value="Заблокировать" class="btn btn-success" style="margin-top:20px" />
+                        <span id="blockClient_Close" class="close">ₓ</span>
+                    </form>
+                </div>
+                <div id="myOverlay"></div>*@
+        }
+    }
+</div>
